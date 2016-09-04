@@ -8,6 +8,6 @@ class Input extends Element {
   }
 
   clearValue() {
-    return this.value = '';
+    return this.el.value = '';
   }
 }
