@@ -8,6 +8,10 @@ class Note {
     return this.title;
   }
 
+  getIndex() {
+    return noteList.getNotes().indexOf(this);
+  }
+
   getHTML() {
     return `
       <div class="note">

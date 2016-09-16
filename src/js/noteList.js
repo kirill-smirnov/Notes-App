@@ -30,6 +30,14 @@ class NoteList extends Element {
   }
 
   deleteNote(note) {
+    var index = note.getIndex();
     
+    if (index !== -1) {
+      this.notes.splice(index, 1);
+      this.updateList();
+
+    } else {
+      new Error('Invalid note index.')
+    }
   }
 }
