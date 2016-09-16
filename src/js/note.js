@@ -9,12 +9,10 @@ class Note {
   }
 
   getHTML() {
-    var template = `
+    return `
       <div class="note">
         <h3 class="note__header">${this.title}</h3>
       </div>
     `;
-
-    return template;
   }
 }

@@ -4,6 +4,10 @@ class NoteList extends Element {
     this.notes = [];
   }
 
+  getNotes() {
+    return this.notes;
+  }
+
   containsTitle(_title) {
     for (let note of this.notes) {
       if (_title === note.getTitle()) {
@@ -14,11 +18,18 @@ class NoteList extends Element {
   }
 
   addNote(note) {
-    super.add(note.getHTML());
     this.notes.push(note);
   }
 
-  deleteNote(note) {
+  updateList() {
+    this.clear();
 
+    for (let note of this.notes) {
+      super.add(note.getHTML());
+    }
+  }
+
+  deleteNote(note) {
+    
   }
 }
