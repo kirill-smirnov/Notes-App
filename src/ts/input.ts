@@ -1,4 +1,6 @@
-class Input extends Element {
+import Element from './containers/element';
+
+export class Input extends Element {
   constructor(el) {
     super(el);
   }

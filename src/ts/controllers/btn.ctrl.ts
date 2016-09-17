@@ -1,4 +1,8 @@
-class addBtnCtrl extends Ctrl {
+import Ctrl from './containers/ctrl';
+
+import * from '../main';
+
+export class addBtnCtrl extends Ctrl {
   static handleOn() {
     var val = titleInput.getValue();
 

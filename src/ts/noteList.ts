@@ -1,4 +1,6 @@
-class NoteList extends Element {
+import Element from './containers/element';
+
+export class NoteList extends Element {
   constructor(el) {
     super(el);
     this.notes = [];

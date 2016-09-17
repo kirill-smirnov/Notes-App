@@ -1,4 +1,7 @@
-class ErrorField extends Element {
+import Element from './containers/ctrl';
+
+
+export class ErrorField extends Element {
   constructor(el) {
     super(el);
   }

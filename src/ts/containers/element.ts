@@ -1,4 +1,4 @@
-class Element {
+export class Element {
   constructor(el) {
     this.el = el;
   }
