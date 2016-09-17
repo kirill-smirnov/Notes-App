@@ -1,6 +1,8 @@
-import Element from './containers/element';
+import { Element } from './containers/element';
 
 export class NoteList extends Element {
+  notes: any[];
+
   constructor(el) {
     super(el);
     this.notes = [];
@@ -24,7 +26,7 @@ export class NoteList extends Element {
   }
 
   updateList() {
-    this.clear();
+    super.clear();
 
     for (let note of this.notes) {
       super.add(note.getHTML());

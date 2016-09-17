@@ -1,4 +1,6 @@
 export class Element {
+  el: any;
+
   constructor(el) {
     this.el = el;
   }

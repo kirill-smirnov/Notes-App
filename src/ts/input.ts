@@ -1,4 +1,4 @@
-import Element from './containers/element';
+import { Element } from './containers/element';
 
 export class Input extends Element {
   constructor(el) {

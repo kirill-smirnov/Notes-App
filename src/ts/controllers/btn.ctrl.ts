@@ -1,6 +1,8 @@
-import Ctrl from './containers/ctrl';
+import { Ctrl } from '../containers/ctrl';
+import { Note } from '../note';
 
-import * from '../main';
+import { titleInput, noteList, ENTER } from '../constants';
+
 
 export class addBtnCtrl extends Ctrl {
   static handleOn() {

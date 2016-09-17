@@ -1,3 +1,3 @@
-class Ctrl {
+export class Ctrl {
   
 }

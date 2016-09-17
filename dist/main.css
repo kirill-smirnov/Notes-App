@@ -1,0 +1,56 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  color: #333;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #eee; }
+
+.container_inner {
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 10px 20px; }
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+button {
+  background-color: #ddd; }
+  button:hover {
+    background-color: #d0d0d0; }
+
+body {
+  background-color: #eee; }
+
+#add_form {
+  width: 100%; }
+  #add_form input#add_form__input {
+    width: calc(100% - 100px);
+    border-radius: 5px 0 0 5px; }
+  #add_form button#add_form__button {
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    width: 78px; }
+  #add_form #add_form__input, #add_form #add_form__button {
+    border: 1px solid #333;
+    padding: 5px 10px;
+    font-size: 1.7rem;
+    padding: 5px 10px;
+    display: block;
+    float: left;
+    outline: none; }
+
+#notes_section .note {
+  border: 1px solid #b7b7b7;
+  background-color: #c4c4c4;
+  border-radius: 1px;
+  padding-top: 5px;
+  margin: 10px 0; }
+  #notes_section .note .note__header {
+    margin: 5px 10px; }
+  #notes_section .note .note__text {
+    margin: 15px 10px; }
+    #notes_section .note .note__text.toggled {
+      display: none; }

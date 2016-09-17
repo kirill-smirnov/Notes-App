@@ -1,7 +1,9 @@
-import { noteList } from '../main';
-
+import { noteList } from './constants';
 
 export class Note {
+  title: string;
+  text: string;
+
 	constructor(title, text = '') {
 		this.title = title;
 		this.text = text;

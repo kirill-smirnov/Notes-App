@@ -1,4 +1,4 @@
-import Element from './containers/ctrl';
+import { Element } from './containers/element';
 
 
 export class ErrorField extends Element {
