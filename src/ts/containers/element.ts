@@ -1,4 +1,4 @@
-export class Element {
+export default class Element {
   el: any;
 
   constructor(el) {

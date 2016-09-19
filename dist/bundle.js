@@ -47,7 +47,8 @@
 	"use strict";
 	var btn_ctrl_1 = __webpack_require__(1);
 	var constants_1 = __webpack_require__(4);
-	btn_ctrl_1.addBtnCtrl.init(constants_1.addBtn, constants_1.titleInput.el);
+	window["noteList"] = constants_1.noteList;
+	btn_ctrl_1.default.init(constants_1.addBtn, constants_1.titleInput.el);
 
 
 /***/ },
@@ -79,7 +80,7 @@
 	            return;
 	        }
 	        else {
-	            var note = new note_1.Note(val);
+	            var note = new note_1.default(val);
 	            constants_1.titleInput.clearValue();
 	            constants_1.noteList.addNote(note);
 	            constants_1.noteList.updateList();
@@ -94,8 +95,9 @@
 	        };
 	    };
 	    return addBtnCtrl;
-	}(ctrl_1.Ctrl));
-	exports.addBtnCtrl = addBtnCtrl;
+	}(ctrl_1.default));
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = addBtnCtrl;
 
 
 /***/ },
@@ -108,7 +110,8 @@
 	    }
 	    return Ctrl;
 	}());
-	exports.Ctrl = Ctrl;
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Ctrl;
 
 
 /***/ },
@@ -130,11 +133,12 @@
 	        return constants_1.noteList.getNotes().indexOf(this);
 	    };
 	    Note.prototype.getHTML = function () {
-	        return "\n      <div class=\"note\">\n        <h3 class=\"note__header\">" + this.title + "</h3>\n      </div>\n    ";
+	        return "\n      <div class=\"note\">\n        <h3 class=\"note__header\">" + this.title + "</h3>\n        <img onclick=\"noteList.deleteNote('" + this.title + "')\" class=\"delete_note\" src=\"https://cdn0.iconfinder.com/data/icons/slim-square-icons-basics/100/basics-22-128.png\"></img>\n      </div>\n    ";
 	    };
 	    return Note;
 	}());
-	exports.Note = Note;
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Note;
 
 
 /***/ },
@@ -145,8 +149,8 @@
 	var input_1 = __webpack_require__(5);
 	var noteList_1 = __webpack_require__(7);
 	exports.addBtn = document.getElementById('add_form__button');
-	exports.titleInput = new input_1.Input(document.getElementById('add_form__input'));
-	exports.noteList = new noteList_1.NoteList(document.querySelector('#notes_section'));
+	exports.titleInput = new input_1.default(document.getElementById('add_form__input'));
+	exports.noteList = new noteList_1.default(document.querySelector('#notes_section'));
 	exports.ENTER = 13;
 
 
@@ -173,8 +177,9 @@
 	        return this.el.value = '';
 	    };
 	    return Input;
-	}(element_1.Element));
-	exports.Input = Input;
+	}(element_1.default));
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Input;
 
 
 /***/ },
@@ -194,7 +199,8 @@
 	    };
 	    return Element;
 	}());
-	exports.Element = Element;
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Element;
 
 
 /***/ },
@@ -226,17 +232,28 @@
 	        }
 	        return false;
 	    };
+	    NoteList.prototype.getNoteByTitle = function (_title) {
+	        for (var _i = 0, _a = this.notes; _i < _a.length; _i++) {
+	            var note = _a[_i];
+	            if (_title === note.getTitle()) {
+	                return note;
+	            }
+	        }
+	        return;
+	    };
 	    NoteList.prototype.addNote = function (note) {
 	        this.notes.push(note);
 	    };
 	    NoteList.prototype.updateList = function () {
 	        _super.prototype.clear.call(this);
+	        var markup;
 	        for (var _i = 0, _a = this.notes; _i < _a.length; _i++) {
 	            var note = _a[_i];
 	            _super.prototype.add.call(this, note.getHTML());
 	        }
 	    };
-	    NoteList.prototype.deleteNote = function (note) {
+	    NoteList.prototype.deleteNote = function (title) {
+	        var note = this.getNoteByTitle(title);
 	        var index = note.getIndex();
 	        if (index !== -1) {
 	            this.notes.splice(index, 1);
@@ -247,8 +264,9 @@
 	        }
 	    };
 	    return NoteList;
-	}(element_1.Element));
-	exports.NoteList = NoteList;
+	}(element_1.default));
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = NoteList;
 
 
 /***/ }

@@ -1,6 +1,6 @@
-import { Element } from './containers/element';
+import Element from './containers/element';
 
-export class NoteList extends Element {
+export default class NoteList extends Element {
   notes: any[];
 
   constructor(el) {
@@ -21,6 +21,15 @@ export class NoteList extends Element {
     return false;
   }
 
+  getNoteByTitle(_title) {
+    for (let note of this.notes) {
+      if (_title === note.getTitle()) {
+        return note;
+      }
+    }
+    return;
+  }
+
   addNote(note) {
     this.notes.push(note);
   }
@@ -28,12 +37,16 @@ export class NoteList extends Element {
   updateList() {
     super.clear();
 
+    var markup;
+    
     for (let note of this.notes) {
+
       super.add(note.getHTML());
     }
   }
 
-  deleteNote(note) {
+  deleteNote(title) {
+    var note = this.getNoteByTitle(title);
     var index = note.getIndex();
     
     if (index !== -1) {

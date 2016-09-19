@@ -1,7 +1,7 @@
-import { Element } from './containers/element';
+import Element from './containers/element';
 
 
-export class ErrorField extends Element {
+export default class ErrorField extends Element {
   constructor(el) {
     super(el);
   }

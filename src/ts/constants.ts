@@ -1,5 +1,5 @@
-import { Input } from './input';
-import { NoteList } from './noteList';
+import Input from './input';
+import NoteList from './noteList';
 
 
 export const addBtn = document.getElementById('add_form__button');

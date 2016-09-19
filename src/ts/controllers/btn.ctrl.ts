@@ -1,10 +1,10 @@
-import { Ctrl } from '../containers/ctrl';
-import { Note } from '../note';
+import Ctrl from '../containers/ctrl';
+import Note from '../note';
 
 import { titleInput, noteList, ENTER } from '../constants';
 
 
-export class addBtnCtrl extends Ctrl {
+export default class addBtnCtrl extends Ctrl {
   static handleOn() {
     var val = titleInput.getValue();
 
