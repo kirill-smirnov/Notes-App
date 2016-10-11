@@ -6,6 +6,6 @@
     "target": "es5"
   },
   "files": [
-    "./src/ts/main.ts"
+    "./src/ts/index.ts"
   ]
 }

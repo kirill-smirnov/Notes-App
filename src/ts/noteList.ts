@@ -1,11 +1,13 @@
 import Element from './containers/element';
 
+import Note from './note'
+
 export default class NoteList extends Element {
   notes: any[];
 
   constructor(el) {
     super(el);
-    this.notes = [];
+    this.notes = JSON.parse(localStorage.getItem('notesApp')) || [];
   }
 
   getNotes() {
@@ -34,14 +36,14 @@ export default class NoteList extends Element {
     this.notes.push(note);
   }
 
-  updateList() {
+  updateList() { console.log(this.notes);
     super.clear();
-
-    var markup;
     
-    for (let note of this.notes) {
+    for (let noteName of this.notes) {
+      var note = new Note(noteName);
+      var noteElem = note.getElem();     
 
-      super.add(note.getHTML());
+      super.addElem(noteElem);
     }
   }
 

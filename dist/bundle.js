@@ -47,8 +47,8 @@
 	"use strict";
 	var btn_ctrl_1 = __webpack_require__(1);
 	var constants_1 = __webpack_require__(4);
-	window["noteList"] = constants_1.noteList;
 	btn_ctrl_1.default.init(constants_1.addBtn, constants_1.titleInput.el);
+	constants_1.noteList.updateList();
 
 
 /***/ },
@@ -132,8 +132,20 @@
 	    Note.prototype.getIndex = function () {
 	        return constants_1.noteList.getNotes().indexOf(this);
 	    };
-	    Note.prototype.getHTML = function () {
-	        return "\n      <div class=\"note\">\n        <h3 class=\"note__header\">" + this.title + "</h3>\n        <img onclick=\"noteList.deleteNote('" + this.title + "')\" class=\"delete_note\" src=\"https://cdn0.iconfinder.com/data/icons/slim-square-icons-basics/100/basics-22-128.png\"></img>\n      </div>\n    ";
+	    Note.prototype.getElem = function () {
+	        var _this = this;
+	        var noteElem = document.createElement('div');
+	        noteElem.classList.add('note');
+	        var header = document.createElement('h3');
+	        header.classList.add('note__header');
+	        header.innerText = this.title;
+	        var img = document.createElement('img');
+	        img.classList.add('delete_note');
+	        img.setAttribute('src', 'https://cdn0.iconfinder.com/data/icons/slim-square-icons-basics/100/basics-22-128.png');
+	        img.onclick = function () { return constants_1.noteList.deleteNote(_this.title); };
+	        noteElem.appendChild(header);
+	        noteElem.appendChild(img);
+	        return noteElem;
 	    };
 	    return Note;
 	}());
@@ -194,8 +206,11 @@
 	    Element.prototype.clear = function () {
 	        this.el.innerHTML = '';
 	    };
-	    Element.prototype.add = function (html) {
+	    Element.prototype.addHTML = function (html) {
 	        this.el.innerHTML += html;
+	    };
+	    Element.prototype.addElem = function (el) {
+	        this.el.appendChild(el);
 	    };
 	    return Element;
 	}());
@@ -214,11 +229,12 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var element_1 = __webpack_require__(6);
+	var note_1 = __webpack_require__(3);
 	var NoteList = (function (_super) {
 	    __extends(NoteList, _super);
 	    function NoteList(el) {
 	        _super.call(this, el);
-	        this.notes = [];
+	        this.notes = JSON.parse(localStorage.getItem('notesApp')) || [];
 	    }
 	    NoteList.prototype.getNotes = function () {
 	        return this.notes;
@@ -245,11 +261,13 @@
 	        this.notes.push(note);
 	    };
 	    NoteList.prototype.updateList = function () {
+	        console.log(this.notes);
 	        _super.prototype.clear.call(this);
-	        var markup;
 	        for (var _i = 0, _a = this.notes; _i < _a.length; _i++) {
-	            var note = _a[_i];
-	            _super.prototype.add.call(this, note.getHTML());
+	            var noteName = _a[_i];
+	            var note = new note_1.default(noteName);
+	            var noteElem = note.getElem();
+	            _super.prototype.addElem.call(this, noteElem);
 	        }
 	    };
 	    NoteList.prototype.deleteNote = function (title) {

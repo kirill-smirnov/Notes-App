@@ -9,7 +9,11 @@ export default class Element {
     this.el.innerHTML = '';
   }
 
-  add(html) {
+  addHTML(html) {
     this.el.innerHTML += html;
+  }
+
+  addElem(el) {
+    this.el.appendChild(el);
   }
 }

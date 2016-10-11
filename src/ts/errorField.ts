@@ -8,6 +8,6 @@ export default class ErrorField extends Element {
 
   static addError(error) {
     var template = `<p>${error}</p>`
-    super.add(template);
+    super.addHTML(template);
   }
 }
