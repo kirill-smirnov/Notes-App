@@ -1,13 +1,15 @@
 import Element from './containers/element';
 
-import Note from './note'
+import Note from './note';
+
+import { utils } from './constants';
 
 export default class NoteList extends Element {
-  notes: any[];
-
+  notes: any;
   constructor(el) {
     super(el);
-    this.notes = JSON.parse(localStorage.getItem('notesApp')) || [];
+    this.notes = utils.store.get('notesApp').map(title => new Note(title)) || [];
+    // this.notes = [];
   }
 
   getNotes() {
@@ -32,24 +34,29 @@ export default class NoteList extends Element {
     return;
   }
 
+  getNoteIndex(note) {
+    return this.getNotes().indexOf(note);
+  };
+
   addNote(note) {
     this.notes.push(note);
+    // this.updateList();
   }
 
-  updateList() { console.log(this.notes);
+  updateList() {
     super.clear();
     
-    for (let noteName of this.notes) {
-      var note = new Note(noteName);
-      var noteElem = note.getElem();     
-
-      super.addElem(noteElem);
+    for (let note of this.notes) {
+      var noteElem = note.getHTML();     
+      super.addHTML(noteElem);
     }
+
+    utils.store.set('notesApp', this.getNotes().map(note => note.getTitle()))
   }
 
   deleteNote(title) {
     var note = this.getNoteByTitle(title);
-    var index = note.getIndex();
+    var index = this.getNoteIndex(note);
     
     if (index !== -1) {
       this.notes.splice(index, 1);

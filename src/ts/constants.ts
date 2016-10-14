@@ -1,6 +1,9 @@
 import Input from './input';
 import NoteList from './noteList';
 
+export const utils = {
+  store:  window["store"],
+}
 
 export const addBtn = document.getElementById('add_form__button');
 

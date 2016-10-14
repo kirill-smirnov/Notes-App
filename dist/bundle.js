@@ -47,6 +47,7 @@
 	"use strict";
 	var btn_ctrl_1 = __webpack_require__(1);
 	var constants_1 = __webpack_require__(4);
+	window["noteList"] = constants_1.noteList;
 	btn_ctrl_1.default.init(constants_1.addBtn, constants_1.titleInput.el);
 	constants_1.noteList.updateList();
 
@@ -116,10 +117,9 @@
 
 /***/ },
 /* 3 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	"use strict";
-	var constants_1 = __webpack_require__(4);
 	var Note = (function () {
 	    function Note(title, text) {
 	        if (text === void 0) { text = ''; }
@@ -129,23 +129,22 @@
 	    Note.prototype.getTitle = function () {
 	        return this.title;
 	    };
-	    Note.prototype.getIndex = function () {
-	        return constants_1.noteList.getNotes().indexOf(this);
-	    };
-	    Note.prototype.getElem = function () {
-	        var _this = this;
-	        var noteElem = document.createElement('div');
-	        noteElem.classList.add('note');
-	        var header = document.createElement('h3');
-	        header.classList.add('note__header');
-	        header.innerText = this.title;
-	        var img = document.createElement('img');
-	        img.classList.add('delete_note');
-	        img.setAttribute('src', 'https://cdn0.iconfinder.com/data/icons/slim-square-icons-basics/100/basics-22-128.png');
-	        img.onclick = function () { return constants_1.noteList.deleteNote(_this.title); };
-	        noteElem.appendChild(header);
-	        noteElem.appendChild(img);
-	        return noteElem;
+	    // getElem() {
+	    //   var noteElem = document.createElement('div');
+	    //     noteElem.classList.add('note');
+	    //   var header: HTMLElement = document.createElement('h3');
+	    //     header.classList.add('note__header');
+	    //     header.innerText = this.title;
+	    //   var img: HTMLImageElement = document.createElement('img');
+	    //     img.classList.add('delete_note');
+	    //     img.setAttribute('src', 'https://cdn0.iconfinder.com/data/icons/slim-square-icons-basics/100/basics-22-128.png');
+	    //     img.onclick = () => noteList.deleteNote(this.title);
+	    //   noteElem.appendChild(header);
+	    //   noteElem.appendChild(img);
+	    //   return noteElem;
+	    // }
+	    Note.prototype.getHTML = function () {
+	        return "\n      <div class=\"note\">\n        <h3 class=\"note__header\">" + this.title + "</h3>\n        <img onclick=\"noteList.deleteNote('" + this.title + "')\" class=\"delete_note\" src=\"https://cdn0.iconfinder.com/data/icons/slim-square-icons-basics/100/basics-22-128.png\"></img>\n      </div>\n    ";
 	    };
 	    return Note;
 	}());
@@ -160,6 +159,9 @@
 	"use strict";
 	var input_1 = __webpack_require__(5);
 	var noteList_1 = __webpack_require__(7);
+	exports.utils = {
+	    store: window["store"],
+	};
 	exports.addBtn = document.getElementById('add_form__button');
 	exports.titleInput = new input_1.default(document.getElementById('add_form__input'));
 	exports.noteList = new noteList_1.default(document.querySelector('#notes_section'));
@@ -230,11 +232,13 @@
 	};
 	var element_1 = __webpack_require__(6);
 	var note_1 = __webpack_require__(3);
+	var constants_1 = __webpack_require__(4);
 	var NoteList = (function (_super) {
 	    __extends(NoteList, _super);
 	    function NoteList(el) {
 	        _super.call(this, el);
-	        this.notes = JSON.parse(localStorage.getItem('notesApp')) || [];
+	        this.notes = constants_1.utils.store.get('notesApp').map(function (title) { return new note_1.default(title); }) || [];
+	        // this.notes = [];
 	    }
 	    NoteList.prototype.getNotes = function () {
 	        return this.notes;
@@ -257,22 +261,26 @@
 	        }
 	        return;
 	    };
+	    NoteList.prototype.getNoteIndex = function (note) {
+	        return this.getNotes().indexOf(note);
+	    };
+	    ;
 	    NoteList.prototype.addNote = function (note) {
 	        this.notes.push(note);
+	        // this.updateList();
 	    };
 	    NoteList.prototype.updateList = function () {
-	        console.log(this.notes);
 	        _super.prototype.clear.call(this);
 	        for (var _i = 0, _a = this.notes; _i < _a.length; _i++) {
-	            var noteName = _a[_i];
-	            var note = new note_1.default(noteName);
-	            var noteElem = note.getElem();
-	            _super.prototype.addElem.call(this, noteElem);
+	            var note = _a[_i];
+	            var noteElem = note.getHTML();
+	            _super.prototype.addHTML.call(this, noteElem);
 	        }
+	        constants_1.utils.store.set('notesApp', this.getNotes().map(function (note) { return note.getTitle(); }));
 	    };
 	    NoteList.prototype.deleteNote = function (title) {
 	        var note = this.getNoteByTitle(title);
-	        var index = note.getIndex();
+	        var index = this.getNoteIndex(note);
 	        if (index !== -1) {
 	            this.notes.splice(index, 1);
 	            this.updateList();
