@@ -8,7 +8,7 @@ export default class NoteList extends Element {
   notes: any;
   constructor(el) {
     super(el);
-    this.notes = utils.store.get('notesApp').map(title => new Note(title)) || [];
+    this.notes = utils.getNotes() || [];
     // this.notes = [];
   }
 
