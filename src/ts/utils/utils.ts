@@ -1,5 +1,6 @@
 import Note from '../note';
 
+
 export default class Utils {
   constructor() {
     this.store = window["store"];
